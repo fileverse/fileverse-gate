@@ -12,7 +12,7 @@ async function canUnlockGate(req, res, next) {
     }
     return ErrorHandler.throwError({
       code: statusCode,
-      message: `${invokerAddress} does not have permission to upload file for subdomain ${contractAddress}`,
+      message: `${invokerAddress} does not have permission to unlock gate for subdomain ${contractAddress}`,
       req,
     });
   }

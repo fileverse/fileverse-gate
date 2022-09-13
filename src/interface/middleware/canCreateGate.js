@@ -12,7 +12,7 @@ async function canCreateGate(req, res, next) {
     }
     return ErrorHandler.throwError({
       code: statusCode,
-      message: `${invokerAddress} does not have permission to upload file for subdomain ${contractAddress}`,
+      message: `${invokerAddress} does not have permission to create gate for subdomain ${contractAddress}`,
       req,
     });
   }
