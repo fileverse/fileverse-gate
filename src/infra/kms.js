@@ -1,4 +1,4 @@
-const config = require('../../../config');
+const config = require('../../config');
 const KMS = require('aws-sdk/clients/kms');
 
 class KMSService {

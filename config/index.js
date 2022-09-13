@@ -7,5 +7,5 @@ dotenv.config({
   ),
 });
 const config = process.env;
-config.SERVICE_NAME = config.SERVICE_NAME || 'storage-service';
+config.SERVICE_NAME = config.SERVICE_NAME || 'gate-service';
 module.exports = config;
