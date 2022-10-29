@@ -1,3 +1,3 @@
 # Fileverse Gate
 
-Service to handle upload of file from authorised UCANs
+Service to handle gating of file from authorised UCANs
