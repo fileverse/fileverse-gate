@@ -17,13 +17,13 @@ const {
 } = require('../middleware');
 
 router.get(
-  '/:address/nfts',
+  '/nfts',
   asyncHandler(canViewAccount),
   asyncHandlerArray(getNftsByAccount),
 );
 
 router.get(
-  '/:address/tokens',
+  '/tokens',
   asyncHandler(canViewAccount),
   asyncHandlerArray(getTokensByAccount),
 );
