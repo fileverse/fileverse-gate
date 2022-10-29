@@ -1,14 +1,19 @@
+const { Gate } = require('../../infra/database/models');
 const KMS = require('../../infra/kms');
 const kms = new KMS();
 
-async function create({ contractAddress }) {
-  const createKey = await kms.generateDataKey({ context: contractAddress.toLowerCase() });
-  // full file
-  return {
-    plaintextKey: createKey.Plaintext,
-    gateKey: createKey.CiphertextBlob,
+async function create({ contractAddress, invokerAddress, params, includeCollaborators }) {
+  const gateKeyPair = await kms.generateDataKey({ context: contractAddress.toLowerCase() });
+  const createdGate = await new Gate({
+    gateId: gateKeyPair.CiphertextBlob,
     contractAddress,
-  };
+    invokerAddress,
+    params,
+    includeCollaborators,
+  }).save();
+  const dataToReturn = createdGate.toObject();
+  dataToReturn.gateKey = gateKeyPair.Plaintext;
+  return dataToReturn;
 }
 
 module.exports = create;

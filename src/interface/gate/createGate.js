@@ -1,19 +1,19 @@
-const { gate } = require('../../domain');
-const { validator } = require('../middleware');
+const { gate } = require("../../domain");
+const { validator } = require("../middleware");
 const { Joi, validate } = validator;
 
 const createGateValidation = {
-    headers: Joi.object({
-      contract: Joi.string().required(),
-    }).unknown(true),
+  body: Joi.object({
+    params: Joi.array().items(Joi.string().required()).required(),
+    includeCollaborators: Joi.boolean().default(false),
+  }),
 };
 
 async function createGate(req, res) {
-  const { contract } = req.headers;
-  const createdGate = await gate.create({
-    contractAddress: contract,
-  });
-  res.json(createdGate);
+  const { contractAddress, invokerAddress } = req;
+  const { params, includeCollaborators } = req.body;
+  const createdGateData = await gate.create({ contractAddress, invokerAddress, params, includeCollaborators });
+  res.json(createdGateData);
 }
 
 module.exports = [validate(createGateValidation), createGate];

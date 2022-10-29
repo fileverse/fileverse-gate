@@ -13,6 +13,7 @@ const helmet = require('helmet');
 const router = require('./interface');
 const { errorHandler } = require('./interface/middleware');
 const ucan = require('./infra/ucan');
+require('./infra/database');
 
 // Express App
 const app = express();
