@@ -1,4 +1,4 @@
-const config = require('../../../config');
+const config = require('../../config');
 const axios = require('axios');
 const Big = require('big.js');
 const _ = require('lodash');

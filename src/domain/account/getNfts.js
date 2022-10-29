@@ -1,5 +1,5 @@
 const config = require('../../../config');
-const NFT = require('../../infra/utils/nft');
+const NFT = require('../../infra/nft');
 
 const nftInstance = new NFT();
 

@@ -1,5 +1,5 @@
 const config = require('../../../config');
-const Token = require('./../../infra/utils/token');
+const Token = require('../../infra/token');
 
 const tokenInstance = new Token();
 

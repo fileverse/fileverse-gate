@@ -1,5 +1,5 @@
 const { account } = require('../../domain');
-const { validator } = require('../middlewares');
+const { validator } = require('../middleware');
 const { Joi, validate } = validator;
 
 const getTokensByAccountValidation = {
