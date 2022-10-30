@@ -6,15 +6,21 @@ const unlockGateValidation = {
   body: Joi.object({
     message: Joi.string().required(),
     signature: Joi.string().required(),
-    address: Joi.string().required(),
     gateId: Joi.string().required(),
   }),
 };
 
 async function unlockGate(req, res) {
   const { contractAddress, invokerAddress } = req;
-  const { message, signature, address, gateId } = req.body;
-  const unlockedGateData = await gate.unlock({ contractAddress, invokerAddress, message, signature, address, gateId });
+  const { message, signature, gateId } = req.body;
+  const unlockedGateData = await gate.unlock({
+    contractAddress,
+    invokerAddress,
+    message,
+    signature,
+    address: invokerAddress,
+    gateId,
+  });
   res.json(unlockedGateData);
 }
 
