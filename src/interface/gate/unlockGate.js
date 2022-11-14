@@ -1,4 +1,4 @@
-const { gate } = require("../../domain");
+const { gate, account } = require("../../domain");
 const { validator } = require("../middleware");
 const { Joi, validate } = validator;
 
@@ -14,7 +14,7 @@ async function unlockGate(req, res) {
   const { contractAddress, invokerAddress } = req;
   const { message, signature, gateId } = req.body;
   if (!req.isAuthenticated) {
-    await validateSignature({
+    await account.validateSignature({
       message,
       signature,
       address: invokerAddress,
