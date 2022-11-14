@@ -13,38 +13,40 @@ let verify = (req, res, next) => {
     // Remove Bearer from string
     token = token.slice(7, token.length);
   }
-
   const contractAddress = req.headers && req.headers.contract;
   const invokerAddress = req.headers && req.headers.invoker;
-
+  const chainId = req.headers && req.headers.chain;
   req.isAuthenticated = false;
   req.invokerAddress = invokerAddress;
   req.contractAddress = contractAddress;
-  if (token) {
-    member({ contractAddress, invokerAddress })
+  req.chainId = chainId;
+  if (token && contractAddress) {
+    member({ contractAddress, invokerAddress, chainId })
       .then((invokerDID) => {
-        ucans.verify(token, {
-          // to make sure we're the intended recipient of this UCAN
-          audience: serviceDID,
-          // capabilities required for this invocation & which owner we expect for each capability
-          requiredCapabilities: [
-            {
-              capability: {
-                with: { scheme: "storage", hierPart: contractAddress.toLowerCase() },
-                can: { namespace: "file", segments: ["CREATE"] }
-              },
-              rootIssuer: invokerDID,
+        if (invokerDID) {
+          ucans.verify(token, {
+            // to make sure we're the intended recipient of this UCAN
+            audience: serviceDID,
+            // capabilities required for this invocation & which owner we expect for each capability
+            requiredCapabilities: [
+              {
+                capability: {
+                  with: { scheme: "storage", hierPart: contractAddress.toLowerCase() },
+                  can: { namespace: "file", segments: ["CREATE"] }
+                },
+                rootIssuer: invokerDID,
+              }
+            ],
+          }).then((result) => {
+            console.log(result);
+            if (result.ok) {
+              req.isAuthenticated = true;
             }
-          ],
-        }).then((result) => {
-          console.log(result);
-          if (result.ok) {
-            req.isAuthenticated = true;
-            req.invokerAddress = invokerAddress;
-            req.contractAddress = contractAddress;
-          }
+            next();
+          });
+        } else {
           next();
-        });
+        }
       })
       .catch((error) => {
         console.log(error);
