@@ -11,7 +11,7 @@ const unlockGateValidation = {
 };
 
 async function unlockGate(req, res) {
-  const { contractAddress, invokerAddress } = req;
+  const { contractAddress, invokerAddress, chainId } = req;
   const { message, signature, gateId } = req.body;
   if (!req.isAuthenticated) {
     await account.validateSignature({
@@ -23,6 +23,7 @@ async function unlockGate(req, res) {
   const unlockedGateData = await gate.unlock({
     contractAddress,
     invokerAddress,
+    chainId,
     gateId,
   });
   res.json(unlockedGateData);
