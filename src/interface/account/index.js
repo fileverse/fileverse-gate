@@ -10,10 +10,12 @@ const {
 
 const getNftsByAccount = require('./getNftsByAccount');
 const getTokensByAccount = require('./getTokensByAccount');
+const registerMember = require('./registerMember');
 
 // middlewares
 const {
   canViewAccount,
+  canRegisterMember,
 } = require('../middleware');
 
 router.get(
@@ -26,6 +28,12 @@ router.get(
   '/tokens',
   asyncHandler(canViewAccount),
   asyncHandlerArray(getTokensByAccount),
+);
+
+router.post(
+  '/register',
+  asyncHandler(canRegisterMember),
+  asyncHandlerArray(registerMember),
 );
 
 module.exports = router;

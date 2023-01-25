@@ -1,4 +1,4 @@
-const Contract = require('../contract');
+const { PortalContract } = require('../contract');
 const { Gate } = require('../../infra/database/models');
 const KMS = require('../../infra/kms');
 const kms = new KMS();
@@ -13,9 +13,9 @@ async function unlock({ contractAddress, invokerAddress, chainId, gateId }) {
     return null;
   }
   let decrypt = false;
-  const network = Contract.networkFromChainId(chainId);
-  const contract = new Contract(contractAddress, network);
-  const isCollaborator = await contract.isCollaborator(invokerAddress);
+  const network = PortalContract.networkFromChainId(chainId);
+  const portalContract = new PortalContract(contractAddress, network);
+  const isCollaborator = await portalContract.isCollaborator(invokerAddress);
   if (gate.includeCollaborators && isCollaborator) {
     decrypt = true;
   }
