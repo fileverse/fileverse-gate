@@ -4,13 +4,23 @@ const { ethers } = require("ethers");
 const provider = require('./provider');
 
 class RegistryContract {
-    constructor(network) {
+    constructor() {
         this.network = config.PORTAL_REGISTRY_NETWORK;
         this.contractAddress = config.PORTAL_REGISTRY_ADDRESS;
         this.contractABI = abi;
         this.networkProviderUrl = provider.getNetworkUrl(this.network);
         this.networkProvider = new ethers.providers.JsonRpcProvider(this.networkProviderUrl);
         this.contractInstance = new ethers.Contract(this.contractAddress, this.contractABI, this.networkProvider);
+    }
+
+    async portalInfo(portalAddress) {
+        const info = await this.contractInstance.portalInfo(portalAddress);
+        return info;
+    }
+
+    async getTokenId(portalAddress) {
+        const info = await this.contractInstance.portalInfo(portalAddress);
+        return info && info.tokenId && info.tokenId.toNumber();
     }
 
     static networkFromChainId(chainId) {
