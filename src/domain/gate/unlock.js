@@ -1,9 +1,10 @@
-const { PortalContract } = require('../contract');
+const contract = require('../contract');
 const { Gate } = require('../../infra/database/models');
 const KMS = require('../../infra/kms');
 const kms = new KMS();
 
 function validateParams({ invokerAddress, params }) {
+  if (params && params.length === 0) return false;
   return true;
 }
 
@@ -13,10 +14,11 @@ async function unlock({ contractAddress, invokerAddress, chainId, gateId }) {
     return null;
   }
   let decrypt = false;
-  const network = PortalContract.networkFromChainId(chainId);
-  const portalContract = new PortalContract(contractAddress, network);
-  const isCollaborator = await portalContract.isCollaborator(invokerAddress);
+  const { isMember, isCollaborator } = await contract.getStatus({ contractAddress, invokerAddress, chainId });
   if (gate.includeCollaborators && isCollaborator) {
+    decrypt = true;
+  }
+  if (gate.includeMembers && isMember) {
     decrypt = true;
   }
   const valid = await validateParams({ invokerAddress, params: gate.params });
