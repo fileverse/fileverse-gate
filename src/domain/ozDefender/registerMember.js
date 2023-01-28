@@ -9,7 +9,8 @@ async function registerMember({ invokerAddress, contractAddress }) {
     const tokenId = await registryContractInstance.getTokenId(contractAddress);
     const apiResponse = await axios.post(
         config.REGISTER_MEMBER_WEBHOOK, {
-            address: invokerAddress,
+            contractAddress: config.REGISTER_MEMBER_CONTRACT,
+            account: invokerAddress,
             tokenId: tokenId,
         }
     );
