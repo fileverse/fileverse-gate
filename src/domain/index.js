@@ -1,5 +1,5 @@
 const gate = require('./gate');
-const contract = require('./contract/portalContract');
+const contract = require('./contract');
 const account = require('./account');
 const ozDefender = require('./ozDefender');
 

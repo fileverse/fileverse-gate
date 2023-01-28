@@ -3,8 +3,10 @@ const router = express.Router();
 
 const gate = require('./gate');
 const account = require('./account');
+const contract = require('./contract');
 
 router.use('/gate', gate);
 router.use('/account', account);
+router.use('/contract', contract);
 
 module.exports = router;
