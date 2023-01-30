@@ -1,5 +1,7 @@
 const config = require('../../../config');
-const { RegistryContract, MemberContract, PortalContract } = require('../contract');
+const PortalContract = require('./portalContract');
+const RegistryContract = require('./registryContract');
+const MemberContract = require('./memberContract');
 const registryInstance = new RegistryContract();
 const memberInstance = new MemberContract();
 
