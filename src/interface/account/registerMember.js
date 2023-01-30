@@ -18,7 +18,8 @@ async function registerMember(req, res) {
     address: invokerAddress,
   });
   const data = await ozDefender.registerMember({ invokerAddress, contractAddress });
-  res.json(data);
+  const txnHash = JSON.parse(data.result);
+  res.json({ txnHash });
 }
 
 module.exports = [validate(registerMemberValidation), registerMember];
