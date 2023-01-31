@@ -15,7 +15,7 @@ const {
   canViewContract,
 } = require('../middleware');
 
-router.post(
+router.get(
   '/status',
   asyncHandler(canViewContract),
   asyncHandlerArray(getStatus),
