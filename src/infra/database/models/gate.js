@@ -13,6 +13,7 @@ _gate.schema = new Schema({
   },
   params: [{ type: String, required: true }],
   includeCollaborators: { type: Boolean, required: true },
+  includeMembers: { type: Boolean, default: false },
   timeStamp: { type: Date, required: true, default: Date.now },
 });
 

@@ -5,7 +5,7 @@ class KMSService {
   constructor() {
     this.accessKeyId = config.S3_ACCESS_KEY_ID;
     this.secretAccessKey = config.S3_SECRET_ACCESS_KEY;
-    this.region = config.S3_BUCKET_REGION;
+    this.region = config.S3_REGION;
     this.kmsKey = config.S3_KMS_KEY;
     this.kms = new KMS({
       accessKeyId: this.accessKeyId,

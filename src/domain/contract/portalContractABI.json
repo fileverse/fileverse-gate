@@ -1,6 +1,59 @@
 [
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_metadataIPFSHash",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_ownerViewDid",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_ownerEditDid",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_trustedForwarder",
+				"type": "address"
+			},
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "portalEncryptionKeyVerifier",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "portalDecryptionKeyVerifier",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "memberEncryptionKeyVerifier",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "memberDecryptionKeyVerifier",
+						"type": "string"
+					}
+				],
+				"internalType": "struct PortalKeyVerifiers.KeyVerifier",
+				"name": "_keyVerifier",
+				"type": "tuple"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
@@ -10,7 +63,7 @@
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "to",
+				"name": "account",
 				"type": "address"
 			},
 			{
@@ -33,6 +86,24 @@
 				"type": "uint256"
 			},
 			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "metadataIPFSHash",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "contentIPFSHash",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "gateIPFSHash",
+				"type": "string"
+			},
+			{
 				"indexed": true,
 				"internalType": "address",
 				"name": "by",
@@ -50,6 +121,24 @@
 				"internalType": "uint256",
 				"name": "fileId",
 				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "metadataIPFSHash",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "contentIPFSHash",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "gateIPFSHash",
+				"type": "string"
 			},
 			{
 				"indexed": true,
@@ -86,7 +175,7 @@
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "to",
+				"name": "account",
 				"type": "address"
 			}
 		],
@@ -99,7 +188,7 @@
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "to",
+				"name": "account",
 				"type": "address"
 			},
 			{
@@ -118,11 +207,30 @@
 			{
 				"indexed": true,
 				"internalType": "address",
-				"name": "to",
+				"name": "account",
 				"type": "address"
 			}
 		],
 		"name": "RemovedMember",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "metadataIPFSHash",
+				"type": "string"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "by",
+				"type": "address"
+			}
+		],
+		"name": "UpdatedPortalMetadata",
 		"type": "event"
 	},
 	{
@@ -142,21 +250,21 @@
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "metadataIPFSHash",
+				"name": "_metadataIPFSHash",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "contentIPFSHash",
+				"name": "_contentIPFSHash",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "gateIPFSHash",
+				"name": "_gateIPFSHash",
 				"type": "string"
 			},
 			{
-				"internalType": "enum FileverseSubdomain.FileType",
+				"internalType": "enum FileversePortal.FileType",
 				"name": "filetype",
 				"type": "uint8"
 			},
@@ -180,21 +288,21 @@
 			},
 			{
 				"internalType": "string",
-				"name": "metadataIPFSHash",
+				"name": "_metadataIPFSHash",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "contentIPFSHash",
+				"name": "_contentIPFSHash",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "gateIPFSHash",
+				"name": "_gateIPFSHash",
 				"type": "string"
 			},
 			{
-				"internalType": "enum FileverseSubdomain.FileType",
+				"internalType": "enum FileversePortal.FileType",
 				"name": "filetype",
 				"type": "uint8"
 			},
@@ -235,7 +343,7 @@
 				"type": "string"
 			},
 			{
-				"internalType": "enum FileverseSubdomain.FileType",
+				"internalType": "enum FileversePortal.FileType",
 				"name": "fileType",
 				"type": "uint8"
 			},
@@ -288,14 +396,46 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "getMemberCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "collaborator",
+				"name": "account",
 				"type": "address"
 			}
 		],
 		"name": "isCollaborator",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "forwarder",
+				"type": "address"
+			}
+		],
+		"name": "isTrustedForwarder",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -318,12 +458,22 @@
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "decryptionKeyVerifier",
+				"name": "portalEncryptionKeyVerifier",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "encryptionKeyVerifier",
+				"name": "portalDecryptionKeyVerifier",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "memberEncryptionKeyVerifier",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "memberDecryptionKeyVerifier",
 				"type": "string"
 			}
 		],
@@ -341,11 +491,6 @@
 		"name": "members",
 		"outputs": [
 			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			},
-			{
 				"internalType": "string",
 				"name": "viewDid",
 				"type": "string"
@@ -353,6 +498,19 @@
 			{
 				"internalType": "string",
 				"name": "editDid",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "metadataIPFSHash",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
 				"type": "string"
 			}
 		],
@@ -385,7 +543,7 @@
 				"type": "string"
 			}
 		],
-		"name": "registerSelfFromMember",
+		"name": "registerSelfToMember",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -431,6 +589,19 @@
 			}
 		],
 		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_metadataIPFSHash",
+				"type": "string"
+			}
+		],
+		"name": "updateMetadata",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
