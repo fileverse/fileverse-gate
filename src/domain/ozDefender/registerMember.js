@@ -16,14 +16,20 @@ async function registerMember({ invokerAddress, contractAddress, chainId }) {
             tokenId: tokenId,
         }
     );
-    const member = new Member({
+    const memberFound = await Member.findOne({
         invokerAddress,
         contractAddress,
-        chainId,
-        tokenId,
         memberContractAddress,
     });
-    await member.save();
+    if (!memberFound) {
+        await (new Member({
+            invokerAddress,
+            contractAddress,
+            chainId,
+            tokenId,
+            memberContractAddress,
+        })).save();
+    }
     return apiResponse.data;
 }
 
