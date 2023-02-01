@@ -17,9 +17,11 @@ async function registerMember({ invokerAddress, contractAddress, chainId }) {
         }
     );
     const memberFound = await Member.findOne({
-        invokerAddress,
         contractAddress,
-        memberContractAddress,
+        invokerAddress,
+        tokenId,
+        chainId,
+        memberContractAddress: config.REGISTER_MEMBER_CONTRACT,
     });
     if (!memberFound) {
         await (new Member({
