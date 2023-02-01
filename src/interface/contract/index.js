@@ -9,6 +9,7 @@ const {
 
 
 const getStatus = require('./getStatus');
+const getMembers = require('./getMembers');
 
 // middlewares
 const {
@@ -19,6 +20,12 @@ router.get(
   '/status',
   asyncHandler(canViewContract),
   asyncHandlerArray(getStatus),
+);
+
+router.get(
+  '/members',
+  asyncHandler(canViewContract),
+  asyncHandlerArray(getMembers),
 );
 
 module.exports = router;
