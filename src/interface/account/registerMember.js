@@ -10,14 +10,14 @@ const registerMemberValidation = {
 };
 
 async function registerMember(req, res) {
-  const { invokerAddress, contractAddress } = req;
+  const { invokerAddress, contractAddress, chainId } = req;
   const { message, signature } = req.body;
   await account.validateSignature({
     message,
     signature,
     address: invokerAddress,
   });
-  const data = await ozDefender.registerMember({ invokerAddress, contractAddress });
+  const data = await ozDefender.registerMember({ invokerAddress, contractAddress, chainId });
   const txnHash = JSON.parse(data.result);
   res.json({ txnHash });
 }
