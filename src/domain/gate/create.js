@@ -3,6 +3,7 @@ const KMS = require('../../infra/kms');
 const kms = new KMS();
 
 async function create({ contractAddress, invokerAddress, params, includeCollaborators }) {
+  console.log(contractAddress, invokerAddress, params, includeCollaborators);
   const gateKeyPair = await kms.generateDataKey({ context: contractAddress.toLowerCase() });
   const createdGate = await new Gate({
     gateId: gateKeyPair.CiphertextBlob,
