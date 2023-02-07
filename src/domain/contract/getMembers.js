@@ -10,7 +10,7 @@ async function getMembers({ contractAddress, invokerAddress, chainId }) {
     tokenId,
     chainId,
     memberContractAddress: config.REGISTER_MEMBER_CONTRACT,
-  }, { _id: 0, invokerAddress: 1 }).lean();
+  }, { _id: 0, invokerAddress: 1, timeStamp: 1 }).lean();
   return {
     contractAddress,
     invokerAddress,
