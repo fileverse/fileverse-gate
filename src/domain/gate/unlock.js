@@ -1,3 +1,4 @@
+const ethers = require('ethers');
 const contract = require('../contract');
 const { Gate } = require('../../infra/database/models');
 const KMS = require('../../infra/kms');
@@ -24,25 +25,63 @@ async function getContractInstance(type, contractAddress, chainId) {
 }
 
 async function checkBalance(balance, min, max) {
-  return balance > min && balance < max;
+  const bigIntBalance = ethers.BigNumber.from(balance);
+  const withinRange = true;
+  const range = {
+    min: min === '*' ? null : ethers.BigNumber.from(min),
+    max: max === '*' ? null : ethers.BigNumber.from(max),
+  };
+  if (range.min && bigIntBalance.lt(range.min)) {
+    withinRange = false;
+  } 
+  if (range.max && bigIntBalance.gt(range.max)) {
+    withinRange = false;
+  } 
+  return withinRange;
+}
+
+async function validateERC1155(contractInstance, tokenId, invokerAddress, min, max) {
+  const balance = await contractInstance.balanceOf(invokerAddress, tokenId);
+  const valid = await checkBalance(balance, min, max);
+  return valid;
+}
+
+async function validateERC721(contractInstance, invokerAddress, min, max) {
+  const balance = await contractInstance.balanceOf(invokerAddress).catch(console.log);
+  const valid = await checkBalance(balance, min, max);
+  return valid;
+}
+
+async function validateERC20(contractInstance, invokerAddress, min, max) {
+  const balance = await contractInstance.balanceOf(invokerAddress);
+  const valid = await checkBalance(balance, min, max);
+  return valid;
 }
 
 async function validateSingleParam({ invokerAddress, param }) {
   const sections = param.split(':');
-  const chainId = sections[0];
+  const chainId = parseInt(sections[0], 10);
   const type = sections[1];
   const contractAddress = sections[2];
-  const contractInstance =  await getContractInstance(type, contractAddress, chainId) 
-  const balance = await contractInstance.balanceOf(invokerAddress);
-  const min = sections[3];
-  const max = sections[4];
-  return balance;
+  const contractInstance = await getContractInstance(type, contractAddress, chainId);
+  const tokenId = sections[3];
+  const min = sections[4];
+  const max = sections[5];
+  let valid = false;
+  if (type === 'erc1155') {
+    valid = await validateERC1155(contractInstance, tokenId, invokerAddress, min, max);
+  } else if (type === 'erc721') {
+    valid = await validateERC721(contractInstance, invokerAddress, min, max);
+  } else if (type === 'erc20') {
+    valid = await validateERC20(contractInstance, invokerAddress, min, max);
+  }
+  return valid;
 }
 
-function validateParams({ invokerAddress, chainId, params }) {
+async function validateParams({ invokerAddress, params }) {
   if (params && params.length === 0) return false;
-
-  return true;
+  const valid = await validateSingleParam({ invokerAddress, param: params[0] });
+  return valid;
 }
 
 async function unlock({ contractAddress, invokerAddress, chainId, gateId }) {
