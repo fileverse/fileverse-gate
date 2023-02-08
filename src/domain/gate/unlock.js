@@ -3,8 +3,45 @@ const { Gate } = require('../../infra/database/models');
 const KMS = require('../../infra/kms');
 const kms = new KMS();
 
-function validateParams({ invokerAddress, params }) {
+async function getContractInstance(type, contractAddress, chainId) {
+  let contractInstance = null;
+  if (type === 'erc721') {
+    const network = contract.networkFromChainId(chainId);
+    contractInstance = new contract.ERC721Contract(contractAddress, network);
+    return contractInstance;
+  }
+  if (type === 'erc20') {
+    const network = contract.networkFromChainId(chainId);
+    contractInstance = new contract.ERC20Contract(contractAddress, network);
+    return contractInstance;
+  }
+  if (type === 'erc1155') {
+    const network = contract.networkFromChainId(chainId);
+    contractInstance = new contract.ERC1155Contract(contractAddress, network);
+    return contractInstance;
+  }
+  return contractInstance;
+}
+
+async function checkBalance(balance, min, max) {
+  return balance > min && balance < max;
+}
+
+async function validateSingleParam({ invokerAddress, param }) {
+  const sections = param.split(':');
+  const chainId = sections[0];
+  const type = sections[1];
+  const contractAddress = sections[2];
+  const contractInstance =  await getContractInstance(type, contractAddress, chainId) 
+  const balance = await contractInstance.balanceOf(invokerAddress);
+  const min = sections[3];
+  const max = sections[4];
+  return balance;
+}
+
+function validateParams({ invokerAddress, chainId, params }) {
   if (params && params.length === 0) return false;
+
   return true;
 }
 
