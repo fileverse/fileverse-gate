@@ -52,6 +52,7 @@ class MoralisService {
       image: (metadata && metadata.image) || nft.image,
       symbol: nft.symbol,
       chain,
+      type: 'erc721',
     };
   }
 
@@ -60,8 +61,9 @@ class MoralisService {
       contractAddress: token.token_address,
       name: token.name,
       symbol: token.symbol,
-      thumbnail: token.thumbnail,
+      image: token.thumbnail,
       chain,
+      type: 'erc20',
     };
   }
 
