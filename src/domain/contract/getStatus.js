@@ -16,7 +16,7 @@ async function getStatus({ contractAddress, invokerAddress, chainId }) {
     invokerAddress,
     chainId,
     tokenId,
-    isMember: !balance.isZero(),
+    isMember: !!balance,
     isCollaborator,
     PORTAL_REGISTRY_ADDRESS: config.PORTAL_REGISTRY_ADDRESS,
     PORTAL_REGISTRY_NETWORK: config.PORTAL_REGISTRY_NETWORK,
