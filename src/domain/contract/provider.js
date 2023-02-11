@@ -8,9 +8,6 @@ function fromNetworks(network) {
   if (network === 'eth_goerli') {
     return config.ETH_GOERLI_RPC_URL;
   }
-  if (network === 'fileverse_testnet') {
-    return config.FILEVERSE_TESTNET_RPC_URL;
-  }
   if (network === 'eth_mainnet') {
     return config.ETH_MAINNET_RPC_URL;
   }
