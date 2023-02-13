@@ -14,6 +14,11 @@ _gate.schema = new Schema({
   params: [{ type: String, required: true }],
   includeCollaborators: { type: Boolean, required: true },
   includeMembers: { type: Boolean, default: false },
+  repToken: {
+    name: { type: String },
+    symbol: { type: String },
+    image: { type: String },
+  },
   timeStamp: { type: Date, required: true, default: Date.now },
 });
 
