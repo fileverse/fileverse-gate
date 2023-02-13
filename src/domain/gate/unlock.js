@@ -26,7 +26,7 @@ async function getContractInstance(type, contractAddress, chainId) {
 
 async function checkBalance(balance, min, max) {
   const bigIntBalance = ethers.BigNumber.from(balance);
-  const withinRange = true;
+  let withinRange = true;
   const range = {
     min: min === '*' ? null : ethers.BigNumber.from(min),
     max: max === '*' ? null : ethers.BigNumber.from(max),
