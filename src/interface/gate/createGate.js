@@ -6,6 +6,11 @@ const createGateValidation = {
   body: Joi.object({
     params: Joi.array().items(Joi.string().required()).required(),
     includeCollaborators: Joi.boolean().default(false),
+    repToken: Joi.object({
+      name: Joi.string(),
+      symbol: Joi.string(),
+      image: Joi.string(),
+    }).optional(),
   }),
 };
 
