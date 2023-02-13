@@ -60,6 +60,7 @@ async function validateERC20(contractInstance, invokerAddress, min, max) {
 
 async function validateSingleParam({ invokerAddress, param }) {
   const sections = param.split(':');
+  console.log(sections);
   if (sections.length < 6) {
     sections.unshift('1');
   }
