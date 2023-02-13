@@ -30,10 +30,13 @@ _gate.schema.pre('save', function (next) {
 _gate.schema.methods.safeObject = function () {
   const safeFields = [
     '_id',
+    'gateId',
     'invokerAddress',
     'contractAddress',
     'params',
     'includeCollaborators',
+    'includeMembers',
+    'repToken',
     'timeStamp',
   ];
   const newSafeObject = {};

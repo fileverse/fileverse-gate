@@ -13,7 +13,7 @@ async function create({ contractAddress, invokerAddress, params, includeCollabor
     includeMembers,
     repToken,
   }).save();
-  const dataToReturn = createdGate.toObject();
+  const dataToReturn = createdGate.safeObject();
   dataToReturn.gateKey = gateKeyPair.Plaintext;
   return dataToReturn;
 }
