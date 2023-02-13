@@ -50,7 +50,7 @@ class MoralisService {
       contractAddress: nft.token_address,
       name: (metadata && metadata.name) || nft.name,
       image: (metadata && metadata.image) || nft.image,
-      decimals: 1,
+      decimals: 0,
       symbol: nft.symbol,
       chain,
       type: 'erc721',
