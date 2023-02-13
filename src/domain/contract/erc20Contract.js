@@ -13,7 +13,7 @@ class ERC20Contract {
 
     async balanceOf(account) {
         const balance = await this.contractInstance.balanceOf(account);
-        return balance && balance.toNumber();
+        return balance;
     }
 
     static networkFromChainId(chainId) {
