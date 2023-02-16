@@ -5,7 +5,7 @@ const { Joi, validate } = validator;
 const getNftsByAccountValidation = {
   query: Joi.object({
     search: Joi.string().optional(),
-    chain: Joi.string().valid('ethereum', 'polygon', 'goerli').optional(),
+    chain: Joi.string().valid('ethereum', 'polygon', 'goerli', 'aurora').optional(),
   }),
 };
 
