@@ -12,8 +12,14 @@ class ERC1155Contract {
     }
 
     async balanceOf(account, tokenId) {
-        const balance = await this.contractInstance.balanceOf(account, tokenId);
-        return balance && balance.toNumber();
+        try {
+            const balance = await this.contractInstance.balanceOf(account, tokenId);
+            return balance && balance.toNumber();
+        } catch (e) {
+            console.log(e);
+            // returning zero balance if anything fails
+            return 0;
+        }
     }
 
     static networkFromChainId(chainId) {
@@ -35,6 +41,9 @@ class ERC1155Contract {
         }
         if (chainIdInNumber === 100) {
             return 'gnosis_mainnet';
+        }
+        if (chainIdInNumber === 1313161554) {
+            return 'aurora';
         }
         return 'eth_goerli';
     }
