@@ -18,6 +18,9 @@ function networkFromChainId(chainId) {
   if (chainIdInNumber === 100) {
     return 'gnosis_mainnet';
   }
+  if (chainIdInNumber === 1313161554) {
+    return 'aurora';
+  }
   return 'eth_goerli';
 }
 
