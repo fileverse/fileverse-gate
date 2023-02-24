@@ -39,6 +39,9 @@ class ERC721Contract {
         if (chainIdInNumber === 1313161554) {
             return 'aurora';
         }
+        if (chainIdInNumber === 10200) {
+            return 'gnosis_testnet';
+        }
         return 'eth_goerli';
     }
 };

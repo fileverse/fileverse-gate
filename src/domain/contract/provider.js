@@ -20,6 +20,9 @@ function fromNetworks(network) {
   if (network === 'aurora') {
     return config.AURORA_MAINNET_RPC_URL;
   }
+  if (network === 'gnosis_testnet') {
+    return config.GNOSIS_TESTNET_RPC_URL;
+  }
   return null;
 }
 

@@ -37,6 +37,9 @@ class MemberContract {
         if (chainIdInNumber === 100) {
             return 'gnosis_mainnet';
         }
+        if (chainIdInNumber === 10200) {
+            return 'gnosis_testnet';
+        }
         return 'eth_goerli';
     }
 };
