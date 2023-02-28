@@ -24,6 +24,9 @@ class ERC20Contract {
         if (chainIdInNumber === 5) {
             return 'eth_goerli';
         }
+        if (chainIdInNumber === 11155111) {
+            return 'eth_sepolia';
+        }
         if (chainIdInNumber === 8420) {
             return 'fileverse_testnet';
         }
