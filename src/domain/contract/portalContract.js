@@ -41,9 +41,9 @@ class PortalContract {
         return memberDetail;
     }
 
-    async getMember(address) {
-        const memberDetail = await this.contractInstance.members(address);
-        return { account: address, viewDid: memberDetail[0], editDid: memberDetail[1] };
+    async getCollaboratorKeys(address) {
+        const keyDetail = await this.contractInstance.collaboratorKeys(address);
+        return { account: address, viewDid: keyDetail[0], editDid: keyDetail[1] };
     }
 
     async isOwner(address) {
@@ -58,6 +58,9 @@ class PortalContract {
         const chainIdInNumber = Number(chainId);
         if (chainIdInNumber === 5) {
             return 'eth_goerli';
+        }
+        if (chainIdInNumber === 11155111) {
+            return 'eth_sepolia';
         }
         if (chainIdInNumber === 8420) {
             return 'fileverse_testnet';
