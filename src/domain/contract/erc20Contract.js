@@ -24,6 +24,9 @@ class ERC20Contract {
         if (chainIdInNumber === 5) {
             return 'eth_goerli';
         }
+        if (chainIdInNumber === 11155111) {
+            return 'eth_sepolia';
+        }
         if (chainIdInNumber === 8420) {
             return 'fileverse_testnet';
         }
@@ -35,6 +38,12 @@ class ERC20Contract {
         }
         if (chainIdInNumber === 100) {
             return 'gnosis_mainnet';
+        }
+        if (chainIdInNumber === 1313161554) {
+            return 'aurora';
+        }
+        if (chainIdInNumber === 10200) {
+            return 'gnosis_testnet';
         }
         return 'eth_goerli';
     }
