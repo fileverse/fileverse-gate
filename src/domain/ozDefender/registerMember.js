@@ -10,10 +10,16 @@ async function registerMember({ invokerAddress, contractAddress, chainId }) {
     // get the tokenId of the contract in the registry
     const tokenId = await registryContractInstance.getTokenId(contractAddress);
     const apiResponse = await axios.post(
-        config.REGISTER_MEMBER_WEBHOOK, {
+        config.REGISTER_MEMBER_WEBHOOK,
+        {
             contractAddress: memberContractAddress,
             account: invokerAddress,
             tokenId: tokenId,
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json',
+            },
         }
     );
     const memberFound = await Member.findOne({
