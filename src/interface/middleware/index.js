@@ -4,6 +4,7 @@ module.exports = {
   canViewAccount: require('./canViewAccount'),
   canViewContract: require('./canViewContract'),
   canRegisterMember: require('./canRegisterMember'),
+  canCheckWhitelist: require('./canCheckWhitelist'),
   errorHandler: require('./errorHandler'),
   validator: require('./validator'),
 };
