@@ -9,7 +9,7 @@ const isWhitelistByAccountValidation = {
 
 async function isWhitelistByAccount(req, res) {
   const { invokerAddress } = req;
-  res.json({ invokerAddress, whitelisted: true });
+  res.json({ invokerAddress, whitelisted: false });
 }
 
 module.exports = [validate(isWhitelistByAccountValidation), isWhitelistByAccount];
