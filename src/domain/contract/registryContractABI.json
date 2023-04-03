@@ -30,7 +30,18 @@
 		"type": "event"
 	},
 	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_resultsPerPage",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_page",
+				"type": "uint256"
+			}
+		],
 		"name": "allPortal",
 		"outputs": [
 			{
@@ -115,24 +126,24 @@
 				"type": "string"
 			},
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "_portalEncryptionKeyVerifier",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "_portalDecryptionKeyVerifier",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "_memberEncryptionKeyVerifier",
-				"type": "string"
+				"type": "bytes32"
 			},
 			{
-				"internalType": "string",
+				"internalType": "bytes32",
 				"name": "_memberDecryptionKeyVerifier",
-				"type": "string"
+				"type": "bytes32"
 			}
 		],
 		"name": "mint",
@@ -159,6 +170,16 @@
 				"internalType": "address",
 				"name": "_owner",
 				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_resultsPerPage",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_page",
+				"type": "uint256"
 			}
 		],
 		"name": "ownedPortal",

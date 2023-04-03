@@ -1,3 +1,4 @@
+const { account } = require('../../domain');
 const { validator } = require("../middleware");
 const { Joi, validate } = validator;
 
@@ -9,7 +10,8 @@ const isWhitelistByAccountValidation = {
 
 async function isWhitelistByAccount(req, res) {
   const { invokerAddress } = req;
-  res.json({ invokerAddress, whitelisted: false });
+  const whitelist = await account.isWhitelisted({ invokerAddress });
+  res.json({ invokerAddress, whitelisted: !!whitelist });
 }
 
 module.exports = [validate(isWhitelistByAccountValidation), isWhitelistByAccount];
