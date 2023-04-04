@@ -18,6 +18,11 @@ class RegistryContract {
         return info;
     }
 
+    async hasDeployedPortal(ownerAddress) {
+        const deployedPortalList = await this.contractInstance.ownedPortal(ownerAddress, 1, 1);
+        return deployedPortalList.length > 0;
+    }
+
     async getTokenId(portalAddress) {
         const info = await this.contractInstance.portalInfo(portalAddress);
         return info && info.tokenId && info.tokenId.toNumber();
