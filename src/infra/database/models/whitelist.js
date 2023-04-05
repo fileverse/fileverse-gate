@@ -4,14 +4,17 @@ const { Schema } = mongoose;
 const _whitelist = {};
 
 _whitelist.schema = new Schema({
-  invokerAddress: { type: String, lowercase: true },
-  contractAddress: {
+  invokerAddress: {
     type: String,
     lowercase: true,
-    required: true,
+    index: true,
   },
-  tags: [{ type: Number }],
-  timeStamp: { type: Date, required: true, default: Date.now },
+  tag: { type: String },
+  timeStamp: {
+    type: Date,
+    required: true,
+    default: Date.now
+  },
 });
 
 _whitelist.schema.pre('save', function (next) {
@@ -23,7 +26,6 @@ _whitelist.schema.methods.safeObject = function () {
   const safeFields = [
     '_id',
     'invokerAddress',
-    'contractAddress',
     'tags',
     'timeStamp',
   ];
