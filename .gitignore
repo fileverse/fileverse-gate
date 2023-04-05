@@ -63,3 +63,6 @@ development.env
 .next
 *.log.*
 .gitsigners
+
+# Data for Scripts
+scripts/data/*
