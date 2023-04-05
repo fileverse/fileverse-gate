@@ -7,7 +7,7 @@ async function processBatch(batch = []) {
   for (let i = 0; i < batch.length; i++) {
     const currentElement = batch[i];
     const whitelist = new Whitelist({ invokerAddress: currentElement, tag: 'common_stack' });
-    await whitelist.save();
+    // await whitelist.save();
   }
 }
 
