@@ -1,3 +1,4 @@
+const config = require('../config');
 const data = require('./data/personal.json');
 const { ethers } = require('ethers');
 const { Whitelist } = require('../src/infra/database/models');
@@ -14,6 +15,12 @@ async function wait(time) {
   await new Promise(resolve => setTimeout(resolve, time));
 }
 
+async function resolveENS(ens) {
+  const provider = new ethers.providers.JsonRpcProvider(config.ETH_MAINNET_RPC_URL);
+  const address = await provider.resolveName(ens);
+  return address;
+}
+
 class Script {
   static async run() {
     const { addresses } = data;
@@ -21,7 +28,10 @@ class Script {
     const batchSize = 50;
     for(let i = 0; i < addresses.length; i++) {
       const currentIndex = i;
-      const address = addresses[currentIndex].shift();
+      let address = addresses[currentIndex].shift();
+      if (address.endsWith('.eth')) {
+        address = await resolveENS(address);
+      }
       const isAddress = ethers.utils.isAddress(address);
       if (isAddress) {
         batch.push(address);
