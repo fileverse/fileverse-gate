@@ -29,7 +29,7 @@ class Script {
     for(let i = 0; i < addresses.length; i++) {
       const currentIndex = i;
       let address = addresses[currentIndex].shift();
-      if (address.endsWith('.eth')) {
+      if (address.includes('.')) {
         address = await resolveENS(address);
       }
       const isAddress = ethers.utils.isAddress(address);
