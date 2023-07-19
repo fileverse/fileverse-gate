@@ -6,11 +6,15 @@ const isWhitelistByAccountValidation = {
   headers: Joi.object({
     invoker: Joi.string().required(),
   }).unknown(true),
+  query: Joi.object({
+    code: Joi.string().optional(),
+  }).unknown(true),
 };
 
 async function isWhitelistByAccount(req, res) {
   const { invokerAddress } = req;
-  const whitelist = await account.isWhitelisted({ invokerAddress });
+  const { code } = req.query;
+  const whitelist = await account.isWhitelisted({ invokerAddress, code });
   res.json({ invokerAddress, whitelisted: !!whitelist });
 }
 
