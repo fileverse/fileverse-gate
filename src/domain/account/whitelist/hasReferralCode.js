@@ -1,7 +1,7 @@
 const codes = require("./codes.json");
 
 async function hasReferralCode({ code }) {
-  if (code) {
+  if (!code) {
     return false;
   }
   const found = codes.find(
