@@ -26,7 +26,7 @@ _whitelist.schema.methods.safeObject = function () {
   const safeFields = [
     '_id',
     'invokerAddress',
-    'tags',
+    'tag',
     'timeStamp',
   ];
   const newSafeObject = {};
