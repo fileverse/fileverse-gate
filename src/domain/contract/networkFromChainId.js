@@ -27,6 +27,9 @@ function networkFromChainId(chainId) {
   if (chainIdInNumber === 10200) {
     return 'gnosis_testnet';
   }
+  if (chainIdInNumber === 534351) {
+    return 'eth_scroll_sepolia';
+  }
   return 'eth_goerli';
 }
 
