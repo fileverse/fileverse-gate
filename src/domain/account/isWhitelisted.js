@@ -1,7 +1,17 @@
-const { hasDeployedPortal, hasReferralCode } = require('./whitelist');
+const {
+  hasDeployedPortal,
+  hasReferralCode,
+  isSafeAddress,
+} = require('./whitelist');
 const { Whitelist } = require('../../infra/database/models');
+const SafeService = require('@safe-global/api-kit');
 
-async function isWhitelisted({ invokerAddress, code = null }) {
+const safeService = new SafeService({
+  txServiceUrl: '',
+  ethAdapter: '',
+});
+
+async function isWhitelisted({ invokerAddress, code = null, chainId }) {
   // check if address has ever deployed a portal
   const hasDeployed = await hasDeployedPortal({ invokerAddress });
   if (hasDeployed) {
@@ -11,7 +21,18 @@ async function isWhitelisted({ invokerAddress, code = null }) {
   if (hasReferral) {
     return true;
   }
-  const whitelist = await Whitelist.findOne({ invokerAddress: invokerAddress.toLowerCase() });
+  const isInvokerAddressSafe = await isSafeAddress({
+    address: invokerAddress,
+    chainId,
+  });
+
+  if (isInvokerAddressSafe) {
+    return true;
+  }
+
+  const whitelist = await Whitelist.findOne({
+    invokerAddress: invokerAddress.toLowerCase(),
+  });
   return whitelist ? true : false;
 }
 
