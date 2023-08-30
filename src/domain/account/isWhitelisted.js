@@ -4,12 +4,6 @@ const {
   isSafeAddress,
 } = require('./whitelist');
 const { Whitelist } = require('../../infra/database/models');
-const SafeService = require('@safe-global/api-kit');
-
-const safeService = new SafeService({
-  txServiceUrl: '',
-  ethAdapter: '',
-});
 
 async function isWhitelisted({ invokerAddress, code = null, chainId }) {
   // check if address has ever deployed a portal
