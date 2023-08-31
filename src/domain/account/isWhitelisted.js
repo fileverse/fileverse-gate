@@ -5,7 +5,7 @@ const {
 } = require('./whitelist');
 const { Whitelist } = require('../../infra/database/models');
 
-async function isWhitelisted({ invokerAddress, code = null, chainId }) {
+async function isWhitelisted({ invokerAddress, code = null }) {
   // check if address has ever deployed a portal
   const hasDeployed = await hasDeployedPortal({ invokerAddress });
   if (hasDeployed) {
@@ -15,10 +15,7 @@ async function isWhitelisted({ invokerAddress, code = null, chainId }) {
   if (hasReferral) {
     return true;
   }
-  const isInvokerAddressSafe = await isSafeAddress({
-    address: invokerAddress,
-    chainId,
-  });
+  const isInvokerAddressSafe = await isSafeAddress(invokerAddress);
 
   if (isInvokerAddressSafe) {
     return true;
