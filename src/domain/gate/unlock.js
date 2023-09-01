@@ -33,21 +33,29 @@ async function checkBalance(balance, min, max) {
   };
   if (range.min && bigIntBalance.lt(range.min)) {
     withinRange = false;
-  } 
+  }
   if (range.max && bigIntBalance.gt(range.max)) {
     withinRange = false;
-  } 
+  }
   return withinRange;
 }
 
-async function validateERC1155(contractInstance, tokenId, invokerAddress, min, max) {
+async function validateERC1155(
+  contractInstance,
+  tokenId,
+  invokerAddress,
+  min,
+  max,
+) {
   const balance = await contractInstance.balanceOf(invokerAddress, tokenId);
   const valid = await checkBalance(balance, min, max);
   return valid;
 }
 
 async function validateERC721(contractInstance, invokerAddress, min, max) {
-  const balance = await contractInstance.balanceOf(invokerAddress).catch(console.log);
+  const balance = await contractInstance
+    .balanceOf(invokerAddress)
+    .catch(console.log);
   const valid = await checkBalance(balance, min, max);
   return valid;
 }
@@ -67,13 +75,23 @@ async function validateSingleParam({ invokerAddress, param }) {
   const chainId = parseInt(sections[0], 10);
   const type = sections[1];
   const contractAddress = sections[2];
-  const contractInstance = await getContractInstance(type, contractAddress, chainId);
+  const contractInstance = await getContractInstance(
+    type,
+    contractAddress,
+    chainId,
+  );
   const tokenId = sections[3];
   const min = sections[4];
   const max = sections[5];
   let valid = false;
   if (type === 'erc1155') {
-    valid = await validateERC1155(contractInstance, tokenId, invokerAddress, min, max);
+    valid = await validateERC1155(
+      contractInstance,
+      tokenId,
+      invokerAddress,
+      min,
+      max,
+    );
   } else if (type === 'erc721') {
     valid = await validateERC721(contractInstance, invokerAddress, min, max);
   } else if (type === 'erc20') {
@@ -89,12 +107,19 @@ async function validateParams({ invokerAddress, params }) {
 }
 
 async function unlock({ contractAddress, invokerAddress, chainId, gateId }) {
-  const gate = await Gate.findOne({ gateId, contractAddress: contractAddress.toLowerCase() }).lean();
+  const gate = await Gate.findOne({
+    gateId,
+    contractAddress: contractAddress.toLowerCase(),
+  }).lean();
   if (!gate) {
     return null;
   }
   let decrypt = false;
-  const { isMember, isCollaborator } = await contract.getStatus({ contractAddress, invokerAddress, chainId });
+  const { isMember, isCollaborator } = await contract.getStatus({
+    contractAddress,
+    invokerAddress,
+    chainId,
+  });
   if (gate.includeCollaborators && isCollaborator) {
     decrypt = true;
   }
@@ -108,7 +133,10 @@ async function unlock({ contractAddress, invokerAddress, chainId, gateId }) {
   if (!decrypt) {
     return null;
   }
-  const gateKey = await kms.decrypt({ encryptedDataKey: gate.gateId, context: contractAddress.toLowerCase() });
+  const gateKey = await kms.decrypt({
+    encryptedDataKey: gate.gateId,
+    context: contractAddress.toLowerCase(),
+  });
   const dataToReturn = gate;
   dataToReturn.gateKey = gateKey;
   return dataToReturn;

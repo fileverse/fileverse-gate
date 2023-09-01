@@ -1,9 +1,9 @@
-const { PortalContract } = require('../domain/contract');
+const { PortalContract, networkFromChainId } = require('../domain/contract');
 const MemberCreds = require('node-cache');
 const cache = new MemberCreds();
 
 module.exports = async function collaboratorKey({ contractAddress, invokerAddress, chainId }) {
-    const network = PortalContract.networkFromChainId(chainId);
+    const network = networkFromChainId(chainId);
     const cacheKey = `${contractAddress}_${invokerAddress}`.toLowerCase();
     let editDid = cache.get(cacheKey);
     if (!editDid) {
