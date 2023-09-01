@@ -3,34 +3,26 @@ function networkFromChainId(chainId) {
     return 'eth_goerli';
   }
   const chainIdInNumber = Number(chainId);
-  if (chainIdInNumber === 5) {
-    return 'eth_goerli';
+  switch (chainIdInNumber) {
+    case 5:
+      return 'eth_goerli';
+    case 8420:
+      return 'fileverse_testnet';
+    case 1:
+      return 'eth_mainnet';
+    case 137:
+      return 'polygon_mainnet';
+    case 100:
+      return 'gnosis_mainnet';
+    case 1313161554:
+      return 'aurora';
+    case 10200:
+      return 'gnosis_testnet';
+    case 534351:
+      return 'eth_scroll_sepolia';
+    default:
+      return 'eth_goerli';
   }
-  if (chainIdInNumber === 11155111) {
-    return 'eth_sepolia';
-  }
-  if (chainIdInNumber === 8420) {
-    return 'fileverse_testnet';
-  }
-  if (chainIdInNumber === 1) {
-    return 'eth_mainnet';
-  }
-  if (chainIdInNumber === 137) {
-    return 'polygon_mainnet';
-  }
-  if (chainIdInNumber === 100) {
-    return 'gnosis_mainnet';
-  }
-  if (chainIdInNumber === 1313161554) {
-    return 'aurora';
-  }
-  if (chainIdInNumber === 10200) {
-    return 'gnosis_testnet';
-  }
-  if (chainIdInNumber === 534351) {
-    return 'eth_scroll_sepolia';
-  }
-  return 'eth_goerli';
 }
 
 module.exports = networkFromChainId;
