@@ -2,11 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const {
-  asyncHandler,
-  asyncHandlerArray,
-} = require('../../infra/asyncHandler');
-
+const { asyncHandler, asyncHandlerArray } = require('../../infra/asyncHandler');
 
 const getNftsByAccount = require('./getNftsByAccount');
 const getTokensByAccount = require('./getTokensByAccount');
@@ -18,7 +14,9 @@ const {
   canViewAccount,
   canRegisterMember,
   canCheckWhitelist,
+  canWhitelistOthers,
 } = require('../middleware');
+const createWhitelist = require('./createWhitelist');
 
 router.get(
   '/nfts',
@@ -36,6 +34,12 @@ router.post(
   '/register',
   asyncHandler(canRegisterMember),
   asyncHandlerArray(registerMember),
+);
+
+router.post(
+  '/whitelist/create',
+  asyncHandler(canWhitelistOthers),
+  asyncHandlerArray(createWhitelist),
 );
 
 router.get(

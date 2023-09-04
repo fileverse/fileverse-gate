@@ -7,4 +7,5 @@ module.exports = {
   canCheckWhitelist: require('./canCheckWhitelist'),
   errorHandler: require('./errorHandler'),
   validator: require('./validator'),
+  canWhitelistOthers: require('./canWhitelistOthers'),
 };
