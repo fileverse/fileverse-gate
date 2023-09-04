@@ -17,6 +17,7 @@ const {
   canWhitelistOthers,
 } = require('../middleware');
 const createWhitelist = require('./createWhitelist');
+const removeWhitelist = require('./removeWhitelist');
 
 router.get(
   '/nfts',
@@ -40,6 +41,12 @@ router.post(
   '/whitelist/create',
   asyncHandler(canWhitelistOthers),
   asyncHandlerArray(createWhitelist),
+);
+
+router.delete(
+  '/whitelist/remove',
+  asyncHandler(canWhitelistOthers),
+  asyncHandlerArray(removeWhitelist),
 );
 
 router.get(
