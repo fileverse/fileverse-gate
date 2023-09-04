@@ -3,4 +3,5 @@ module.exports = {
   hasReferralCode: require('./hasReferralCode'),
   create: require('./create'),
   remove: require('./remove'),
+  isSafeAddress: require('./isSafeAddress'),
 };

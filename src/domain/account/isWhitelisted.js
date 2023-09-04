@@ -1,4 +1,8 @@
-const { hasDeployedPortal, hasReferralCode } = require('./whitelist');
+const {
+  hasDeployedPortal,
+  hasReferralCode,
+  isSafeAddress,
+} = require('./whitelist');
 const { Whitelist } = require('../../infra/database/models');
 
 async function isWhitelisted({ invokerAddress, code = null }) {
@@ -11,7 +15,15 @@ async function isWhitelisted({ invokerAddress, code = null }) {
   if (hasReferral) {
     return true;
   }
-  const whitelist = await Whitelist.findOne({ invokerAddress: invokerAddress.toLowerCase() });
+  const isInvokerAddressSafe = await isSafeAddress(invokerAddress);
+
+  if (isInvokerAddressSafe) {
+    return true;
+  }
+
+  const whitelist = await Whitelist.findOne({
+    invokerAddress: invokerAddress.toLowerCase(),
+  });
   return whitelist ? true : false;
 }
 
