@@ -1,21 +1,13 @@
-const axios = require('axios');
-const { errorHandler } = require('../../../interface/middleware');
-const _errorHandler = require('../../../infra/errorHandler');
+const ethers = require("ethers");
+const Provider = require('../../contract/providerInstance');
+const providerInstance = new Provider();
 
 async function isSafeAddress(address) {
   try {
-    const response = await axios({
-      method: 'get',
-      url: `https://safe-transaction-mainnet.safe.global/api/v1/safes/${address}`,
-    });
-    if (response && response.data) return true;
-    return false;
+    address = ethers.utils.getAddress(address);
+    const isContract = await providerInstance.isContract(address);
+    return isContract;
   } catch (e) {
-    if (e.response.status !== 404)
-      return _errorHandler.throwError({
-        code: 500,
-        message: 'Interval Server Error',
-      });
     return false;
   }
 }
