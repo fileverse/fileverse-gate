@@ -1,6 +1,10 @@
 [
-    {
-        "code": "ETHCC",
-        "description": "Ethereum Community Conference"
-    }
+  {
+    "code": "SCROLL",
+    "description": "Scroll Community"
+  },
+  {
+    "code": "DAPPCON",
+    "description": "DappCon Community"
+  }
 ]
