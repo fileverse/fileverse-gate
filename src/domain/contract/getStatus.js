@@ -2,13 +2,14 @@ const config = require('../../../config');
 const PortalContract = require('./portalContract');
 const RegistryContract = require('./registryContract');
 const MemberContract = require('./memberContract');
+const networkFromChainId = require('./networkFromChainId');
 const registryInstance = new RegistryContract();
 const memberInstance = new MemberContract();
 
 async function getStatus({ contractAddress, invokerAddress, chainId }) {
   const tokenId = await registryInstance.getTokenId(contractAddress);
   const balance = await memberInstance.balanceOf(invokerAddress, tokenId);
-  const network = await PortalContract.networkFromChainId(chainId);
+  const network = await networkFromChainId(chainId);
   const portalInstance = new PortalContract(contractAddress, network);
   const isCollaborator = await portalInstance.isCollaborator(invokerAddress);
   return {
