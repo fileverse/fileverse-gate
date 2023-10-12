@@ -2,5 +2,9 @@
     {
         "code": "ETHCC",
         "description": "Ethereum Community Conference"
+    },
+    {
+        "code": "LAYER3",
+        "description": "Layer3 OnChain Competition"
     }
 ]
