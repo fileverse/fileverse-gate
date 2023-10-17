@@ -2,5 +2,13 @@
     {
         "code": "ETHCC",
         "description": "Ethereum Community Conference"
+    },
+    {
+        "code": "ANN",
+        "description": "Fundraising Tweet"
+    },
+    {
+        "code": "LAYER3",
+        "description": "Layer3 OnChain Competition"
     }
 ]
