@@ -4,14 +4,18 @@ const { Joi, validate } = validator;
 
 const mintHeartValidation = {
   body: Joi.object({
-    invokerAddress: Joi.string().required(),
+    message: Joi.string().required(),
+    signature: Joi.string().required(),
     urlString: Joi.string().required(),
+    startBlock: Joi.number().required(),
+    invokerAddress: Joi.string().required(),
+    rawUrl: Joi.string().required(),
   }),
 };
 
 async function mintHeart(req, res) {
-  const { invokerAddress, contractAddress, chainId } = req;
-  const { message, signature } = req.body;
+  const { message, signature, urlString, startBlock, invokerAddress, rawUrl } =
+    req.body;
   await account.validateSignature({
     message,
     signature,
@@ -19,8 +23,10 @@ async function mintHeart(req, res) {
   });
   const data = await ozDefender.mintHeart({
     invokerAddress,
-    contractAddress,
+    urlString,
     chainId,
+    startBlock,
+    rawUrl,
   });
   const txnHash = JSON.parse(data.result);
   res.json({ txnHash });
