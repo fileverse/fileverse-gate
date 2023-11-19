@@ -24,7 +24,6 @@ async function mintHeart(req, res) {
   const data = await ozDefender.mintHeart({
     invokerAddress,
     urlString,
-    chainId,
     startBlock,
     rawUrl,
   });

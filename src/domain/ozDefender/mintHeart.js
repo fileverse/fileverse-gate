@@ -17,7 +17,7 @@ async function mintHeart({ invokerAddress, urlString, startBlock, rawUrl }) {
       },
     }
   );
-  return { txnHash: apiResponse.txnHash };
+  return apiResponse.data;
 }
 
 module.exports = mintHeart;
