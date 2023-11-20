@@ -1,3 +1,4 @@
 module.exports = {
-  registerMember: require('./registerMember'),
+  registerMember: require("./registerMember"),
+  mintHeart: require("./mintHeart"),
 };
