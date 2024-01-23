@@ -10,5 +10,9 @@
     {
         "code": "GALXE",
         "description": "Galxe Campaign Link"
+    },
+    {
+        "code": "BLOCKSCOUT",
+        "description": "Blockscout Marketplace"
     }
 ]
