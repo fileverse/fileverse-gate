@@ -14,5 +14,9 @@
     {
         "code": "BLOCKSCOUT",
         "description": "Blockscout Marketplace"
+    },
+    {
+        "code": "ARWEAVE",
+        "description": "Areweave Developers"
     }
 ]
