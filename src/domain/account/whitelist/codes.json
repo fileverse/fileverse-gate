@@ -4,11 +4,19 @@
         "description": "Ethereum Community Conference"
     },
     {
-        "code": "DPAGES",
-        "description": "DPages Trial Link"
-    },
-    {
         "code": "LAYER3",
         "description": "Layer3 OnChain Competition"
+    },
+    {
+        "code": "GALXE",
+        "description": "Galxe Campaign Link"
+    },
+    {
+        "code": "BLOCKSCOUT",
+        "description": "Blockscout Marketplace"
+    },
+    {
+        "code": "ARWEAVE",
+        "description": "Areweave Developers"
     }
 ]
