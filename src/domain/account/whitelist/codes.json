@@ -16,6 +16,10 @@
         "description": "Blockscout Marketplace"
     },
     {
+        "code": "ETHDENVER",
+        "description": "ETHDENVER Campaign"
+    },
+    {
         "code": "ARWEAVE",
         "description": "Areweave Developers"
     }
