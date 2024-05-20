@@ -22,5 +22,17 @@
     {
         "code": "ARWEAVE",
         "description": "Areweave Developers"
+    },
+    {
+        "code": "FILEVERSE_SUMMER",
+        "description": "Limited Activity"
+    },
+    {
+        "code": "ONLY_FILES",
+        "description": "Allowlisted Portals"
+    },
+    {
+        "code": "FARCASTER1",
+        "description": "BountyCaster - 7 Days Activity"
     }
 ]
