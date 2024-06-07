@@ -8,14 +8,15 @@ const whiteListAddressValidation = {
             Joi.string().required(),
         ).required(),
         tag: Joi.string().optional(),
+        author: Joi.string().required(),
     }),
 };
 
 
 async function whitelistAddress(req, res) {
-    const { address, tag } = req.body;
+    const { address, tag, author } = req.body;
     try {
-        await Whitelist.create({ address, tag });
+        await Whitelist.create({ address, tag, author });
         res.json({ success: true, error: null });
     }
     catch (error) {
