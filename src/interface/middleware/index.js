@@ -6,5 +6,6 @@ module.exports = {
   canRegisterMember: require('./canRegisterMember'),
   canCheckWhitelist: require('./canCheckWhitelist'),
   errorHandler: require('./errorHandler'),
+  whitelistAdmin: require('./whitelistAdmin'),
   validator: require('./validator'),
 };
