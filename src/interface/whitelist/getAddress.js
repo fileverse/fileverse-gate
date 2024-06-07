@@ -13,6 +13,7 @@ async function getAddress(req, res) {
             invokerAddress: whitelist.invokerAddress,
             tag: whitelist.tag,
             timeStamp: whitelist.timeStamp,
+            author: whitelist.author,
         });
     }
     catch (error) {
