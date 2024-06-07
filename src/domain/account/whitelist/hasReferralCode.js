@@ -1,13 +1,11 @@
-const codes = require("./codes.json");
+const WhitelistCodes = require("../../whitelistCodes")
 
 async function hasReferralCode({ code }) {
   if (!code) {
     return false;
   }
-  const found = codes.find(
-    (elem) => elem.code.toLowerCase() === code.toLowerCase()
-  );
-  return !!found;
+  const resp = await WhitelistCodes.isEnalbed({ code });
+  return resp;
 }
 
 module.exports = hasReferralCode;
