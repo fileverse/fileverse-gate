@@ -5,17 +5,12 @@ const router = express.Router();
 const {
     asyncHandler,
     asyncHandlerArray,
-} = require('../../infra/asyncHandler');
+} = require('../../../infra/asyncHandler');
 
-const { whitelistAdmin } = require('../middleware');
+const codeRouter = require('./codes');
+const addressRouter = require('./address');
 
-const codes = require('./codes');
-router.use('/codes', codes);
-
-const getAddress = require('./getAddress');
-const whitelistAddress = require('./address');
-
-router.post('/address', asyncHandler(whitelistAdmin), asyncHandlerArray(whitelistAddress));
-router.get('/address/:address', asyncHandler(getAddress));
+router.use('/codes', codeRouter);
+router.use('/address', addressRouter);
 
 module.exports = router;
