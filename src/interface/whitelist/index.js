@@ -5,7 +5,7 @@ const router = express.Router();
 const {
     asyncHandler,
     asyncHandlerArray,
-} = require('../../../infra/asyncHandler');
+} = require('../../infra/asyncHandler');
 
 const codeRouter = require('./codes');
 const addressRouter = require('./address');

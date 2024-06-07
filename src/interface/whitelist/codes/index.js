@@ -5,7 +5,7 @@ const router = express.Router();
 const {
     asyncHandler,
     asyncHandlerArray,
-} = require('../../infra/asyncHandler');
+} = require('../../../infra/asyncHandler');
 
 const new_codes = require('./newCodes');
 const disable_codes = require('./disableCodes');

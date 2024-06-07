@@ -6,8 +6,18 @@ async function getAll({ status }) {
     if (status == 'active') {
         whitelistCodes.find({
             $and: [
-                { $or: [{ date_begin: null }, { date_begin: { $lte: today } }] },
-                { $or: [{ date_end: null }, { date_end: { $gte: tommorow } }] }
+                {
+                    $or: [
+                        { expiry: null },
+                        { expiry: { $lt: Date.now() } }
+                    ]
+                },
+                {
+                    $or: [
+                        { allowedUses: null },
+                        { $expr: { $gt: ['$allowedUses', '$used'] } }
+                    ]
+                }
             ]
         })
     }

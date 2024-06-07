@@ -13,7 +13,13 @@ async function allCodes(req, res) {
     const { status } = req.query;
     try {
         const whitelistCodes = await WhitelistCodes.getAll({ status });
-        res.json(whitelistCodes);
+        let resp = whitelistCodes.map((code) => {
+            return {
+                code: code.code,
+                description: code.description,
+            }
+        });
+        res.json({ success: true, error: null, status: status, data: resp });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
