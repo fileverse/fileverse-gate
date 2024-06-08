@@ -9,9 +9,6 @@ const {
 
 const { whitelistAdmin } = require('../../middleware');
 
-const codes = require('../codes');
-router.use('/codes', codes);
-
 const getAddress = require('./getAddress');
 const whitelistAddress = require('./address');
 
