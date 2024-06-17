@@ -20,6 +20,10 @@
         "description": "ETHDENVER Campaign"
     },
     {
+        "code": "ONLY_FILES",
+        "description": "Only Files Campaign"
+    },
+    {
         "code": "FILEVERSE_SUMMER",
         "description": "Limited Activity"
     },
