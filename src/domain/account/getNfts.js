@@ -3,14 +3,14 @@ const NFT = require('../../infra/nft');
 
 const nftInstance = new NFT();
 
-async function getNfts({ address, search, chain, token }) {
+async function getNfts({ address, search, chain, tokenAddress, tokenId }) {
   let nfts = [];
 
-  if (token) {
+  if (tokenAddress && tokenId) {
     nfts = await nftInstance.getNftByMetadata({
       chain: chain,
-      tokenAddress: token.address,
-      tokenId: token.id,
+      tokenAddress: tokenAddress,
+      tokenId: tokenId,
     });
   } else {
     nfts = await nftInstance.getOwnedNFTs({
