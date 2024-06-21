@@ -5,6 +5,10 @@ const { Joi, validate } = validator;
 const getNftsByAccountValidation = {
   query: Joi.object({
     search: Joi.string().optional(),
+    token: Joi.object({
+      address: Joi.string().required(),
+      id: Joi.string().required(),
+    }).optional(),
     chain: Joi.string().valid('ethereum', 'polygon', 'goerli', 'aurora').optional(),
   }),
 };
@@ -12,7 +16,7 @@ const getNftsByAccountValidation = {
 async function getNftsByAccount(req, res) {
   const { invokerAddress } = req;
   const { search = '', chain } = req.query;
-  const nfts = await account.getNfts({ address: invokerAddress, search, chain });
+  const nfts = await account.getNfts({ address: invokerAddress, search, chain, token });
   res.json({ nft: nfts });
 }
 

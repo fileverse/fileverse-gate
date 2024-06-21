@@ -5,14 +5,16 @@ const { Joi, validate } = validator;
 const getTokensByAccountValidation = {
   query: Joi.object({
     search: Joi.string().optional(),
+    tokenAddress: Joi.string().required(),
     chain: Joi.string().valid('ethereum', 'polygon', 'goerli', 'aurora').optional(),
   }),
 };
 
 async function getTokensByAccount(req, res) {
   const { invokerAddress } = req;
-  const { search = '', chain } = req.query;
-  const tokens = await account.getTokens({ address: invokerAddress, search, chain });
+  const { search = '', chain, tokenAddress } = req.query;
+
+  const tokens = await account.getTokens({ address: invokerAddress, search, chain, tokenAddress });
   res.json({ token: tokens });
 }
 
