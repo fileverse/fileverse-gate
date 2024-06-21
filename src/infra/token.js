@@ -14,11 +14,11 @@ class Token {
     return moralisInstance.getOwnedTokens(address, chain);
   }
 
-  async getTokenByMetadata({ chain, tokenAddress }) {
+  async getTokenByMetadata({ chain, address, tokenAddress }) {
     if (chain === "aurora") {
       throw new Error("aurora chain not supported yet");
     }
-    return moralisInstance.getTokenByMetadata(tokenAddress, chain);
+    return moralisInstance.getTokenByMetadata(address, tokenAddress, chain);
   }
 }
 

@@ -99,7 +99,7 @@ class MoralisService {
     return tokens.filter((token) => token.name && token.symbol);
   }
 
-  async getTokenByMetadata(tokenAddress, chain) {
+  async getTokenByMetadata(address, tokenAddress, chain) {
     const chainCode = this.getChainCode({ chain });
     const url = `${this.baseAddress}/${address}/erc20?chain=${chainCode}&tokenAddresses%5B0%5D=${tokenAddress}`
 
