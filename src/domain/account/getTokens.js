@@ -6,7 +6,7 @@ const tokenInstance = new Token();
 async function getTokens({ address, search, chain, tokenAddress }) {
   let tokens = [];
 
-  if (token) {
+  if (tokenAddress) {
     tokens = await tokenInstance.getTokenByMetadata({
       chain: chain,
       tokenAddress: tokenAddress,
