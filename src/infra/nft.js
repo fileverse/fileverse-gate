@@ -14,11 +14,11 @@ class NFT {
     return moralisInstance.getOwnedNFTs(address, chain);
   }
 
-  async getNftByMetadata({ chain, tokneAddress, tokenId }) {
+  async getNftByMetadata({ chain, tokenAddress, tokenId }) {
     if (chain === "aurora") {
       throw new Error("aurora chain not supported yet");
     }
-    return moralisInstance.getNftByMetadata(tokneAddress, tokenId, chain);
+    return moralisInstance.getNftByMetadata(tokenAddress, tokenId, chain);
   }
 }
 
