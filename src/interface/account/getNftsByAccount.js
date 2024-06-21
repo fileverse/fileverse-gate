@@ -14,12 +14,8 @@ const getNftsByAccountValidation = {
 async function getNftsByAccount(req, res) {
   const { invokerAddress } = req;
   const { search = '', chain, tokenAddress, tokenId } = req.query;
-  const token = {
-    address: tokenAddress,
-    id: tokenId,
-  }
 
-  const nfts = await account.getNfts({ address: invokerAddress, search, chain, token });
+  const nfts = await account.getNfts({ address: invokerAddress, search, chain, tokenAddress, tokenId });
   res.json({ nft: nfts });
 }
 
