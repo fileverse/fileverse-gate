@@ -5,6 +5,11 @@ const _ = require('lodash');
 
 class MoralisService {
   constructor() {
+    this.headers = {
+      "X-API-Key": config.MORALIS_API_KEY,
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    }
     axios.defaults.headers.get['x-api-key'] = config.MORALIS_API_KEY;
     this.baseAddress = 'https://deep-index.moralis.io/api/v2';
     this.baseAddressV2_2 = 'https://deep-index.moralis.io/api/v2.2';
@@ -98,7 +103,12 @@ class MoralisService {
     const chainCode = this.getChainCode({ chain });
     const url = `${this.baseAddress}/${address}/erc20?chain=${chainCode}&tokenAddresses%5B0%5D=${tokenAddress}`
 
-    const apiResponse = await axios.get(url)
+    const config = {
+      method: 'get',
+      url: url,
+      headers: this.headers,
+    }
+    const apiResponse = await axios.request(config)
     const tokens = apiResponse.data.map((token) =>
       this.formatToken(token, chain),
     );
@@ -111,7 +121,7 @@ class MoralisService {
     let data = JSON.stringify({
       "tokens": [
         {
-          "tokenAddress": tokenAddress,
+          "token_address": tokenAddress,
           "token_id": tokenId
         }
       ],
@@ -119,9 +129,14 @@ class MoralisService {
       "media_items": true
     });
 
-    const url = `${this.baseAddressV2_2}/nft/getMultipleNFTs?chain=${chainCode}' `
+    let config = {
+      method: 'post',
+      url: `${this.baseAddressV2_2}/nft/getMultipleNFTs?chain=${chainCode}`,
+      headers: this.headers,
+      data: data
+    };
 
-    const apiResponse = await axios.post(url, data)
+    const apiResponse = await axios.request(config);
     const tokens = apiResponse.data.map((token) =>
       this.formatToken(token, chain),
     );
