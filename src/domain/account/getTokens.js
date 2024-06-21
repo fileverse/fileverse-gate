@@ -8,6 +8,7 @@ async function getTokens({ address, search, chain, tokenAddress }) {
 
   if (tokenAddress) {
     tokens = await tokenInstance.getTokenByMetadata({
+      address: address,
       chain: chain,
       tokenAddress: tokenAddress,
     });
