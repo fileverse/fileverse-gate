@@ -138,7 +138,7 @@ class MoralisService {
 
     const apiResponse = await axios.request(config);
     const tokens = apiResponse.data.map((token) =>
-      this.formatToken(token, chain),
+      this.formatNft(token, chain),
     );
     return tokens.filter((token) => token.name && token.symbol);
   }
