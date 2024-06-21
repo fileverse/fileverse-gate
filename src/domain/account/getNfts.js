@@ -20,8 +20,7 @@ async function getNfts({ address, search, chain, tokenAddress, tokenId }) {
   }
 
   nfts = nfts.filter((nft) => {
-    // here I want nfts that have 'address' same as the param
-    return nft.owner_of === address;
+    return nft.owner_of === address.toLowerCase();
   });
 
   // eslint-disable-next-line
