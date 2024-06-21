@@ -60,6 +60,7 @@ class MoralisService {
       symbol: nft.symbol,
       chain,
       type: 'erc721',
+      owner_of: nft.owner_of,
     };
   }
 
