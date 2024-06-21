@@ -5,8 +5,14 @@ const _ = require('lodash');
 
 class MoralisService {
   constructor() {
+    this.headers = {
+      "X-API-Key": config.MORALIS_API_KEY,
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    }
     axios.defaults.headers.get['x-api-key'] = config.MORALIS_API_KEY;
     this.baseAddress = 'https://deep-index.moralis.io/api/v2';
+    this.baseAddressV2_2 = 'https://deep-index.moralis.io/api/v2.2';
   }
 
   getChainCode({ chain }) {
@@ -54,6 +60,7 @@ class MoralisService {
       symbol: nft.symbol,
       chain,
       type: 'erc721',
+      owner_of: nft.owner_of,
     };
   }
 
@@ -89,6 +96,50 @@ class MoralisService {
     );
     const tokens = apiResponse.data.map((token) =>
       this.formatToken(token, chain),
+    );
+    return tokens.filter((token) => token.name && token.symbol);
+  }
+
+  async getTokenByMetadata(address, tokenAddress, chain) {
+    const chainCode = this.getChainCode({ chain });
+    const url = `${this.baseAddress}/${address}/erc20?chain=${chainCode}&tokenAddresses%5B0%5D=${tokenAddress}`
+
+    const config = {
+      method: 'get',
+      url: url,
+      headers: this.headers,
+    }
+    const apiResponse = await axios.request(config)
+    const tokens = apiResponse.data.map((token) =>
+      this.formatToken(token, chain),
+    );
+    return tokens.filter((token) => token.name && token.symbol);
+  }
+
+  async getNftByMetadata(tokenAddress, tokenId, chain) {
+    const chainCode = this.getChainCode({ chain });
+
+    let data = JSON.stringify({
+      "tokens": [
+        {
+          "token_address": tokenAddress,
+          "token_id": tokenId
+        }
+      ],
+      "normalizeMetadata": false,
+      "media_items": true
+    });
+
+    let config = {
+      method: 'post',
+      url: `${this.baseAddressV2_2}/nft/getMultipleNFTs?chain=${chainCode}`,
+      headers: this.headers,
+      data: data
+    };
+
+    const apiResponse = await axios.request(config);
+    const tokens = apiResponse.data.map((token) =>
+      this.formatNft(token, chain),
     );
     return tokens.filter((token) => token.name && token.symbol);
   }
