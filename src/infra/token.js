@@ -5,13 +5,20 @@ const moralisInstance = new Moralis();
 const covalentInstance = new Covalent();
 
 class Token {
-  constructor() {}
+  constructor() { }
 
   async getOwnedTokens({ chain, address }) {
     if (chain === "aurora") {
       return covalentInstance.getOwnedTokens(address, chain);
     }
     return moralisInstance.getOwnedTokens(address, chain);
+  }
+
+  async getTokenByMetadata({ chain, tokenAddress }) {
+    if (chain === "aurora") {
+      throw new Error("aurora chain not supported yet");
+    }
+    return moralisInstance.getTokenByMetadata(tokenAddress, chain);
   }
 }
 

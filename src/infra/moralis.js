@@ -7,6 +7,7 @@ class MoralisService {
   constructor() {
     axios.defaults.headers.get['x-api-key'] = config.MORALIS_API_KEY;
     this.baseAddress = 'https://deep-index.moralis.io/api/v2';
+    this.baseAddressV2_2 = 'https://deep-index.moralis.io/api/v2.2';
   }
 
   getChainCode({ chain }) {
@@ -87,6 +88,40 @@ class MoralisService {
     const apiResponse = await axios.get(
       `${this.baseAddress}/${address}/erc20?chain=${chainCode}`,
     );
+    const tokens = apiResponse.data.map((token) =>
+      this.formatToken(token, chain),
+    );
+    return tokens.filter((token) => token.name && token.symbol);
+  }
+
+  async getTokenByMetadata(tokenAddress, chain) {
+    const chainCode = this.getChainCode({ chain });
+    const url = `${this.baseAddress}/${address}/erc20?chain=${chainCode}&tokenAddresses%5B0%5D=${tokenAddress}`
+
+    const apiResponse = await axios.get(url)
+    const tokens = apiResponse.data.map((token) =>
+      this.formatToken(token, chain),
+    );
+    return tokens.filter((token) => token.name && token.symbol);
+  }
+
+  async getNftByMetadata(tokenAddress, tokenId, chain) {
+    const chainCode = this.getChainCode({ chain });
+
+    let data = JSON.stringify({
+      "tokens": [
+        {
+          "tokenAddress": tokenAddress,
+          "token_id": tokenId
+        }
+      ],
+      "normalizeMetadata": false,
+      "media_items": true
+    });
+
+    const url = `${this.baseAddressV2_2}/nft/getMultipleNFTs?chain=${chainCode}' `
+
+    const apiResponse = await axios.post(url, data)
     const tokens = apiResponse.data.map((token) =>
       this.formatToken(token, chain),
     );

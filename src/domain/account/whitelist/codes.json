@@ -20,16 +20,12 @@
         "description": "ETHDENVER Campaign"
     },
     {
-        "code": "ARWEAVE",
-        "description": "Areweave Developers"
+        "code": "ONLY_FILES",
+        "description": "Only Files Campaign"
     },
     {
         "code": "FILEVERSE_SUMMER",
         "description": "Limited Activity"
-    },
-    {
-        "code": "ONLY_FILES",
-        "description": "Allowlisted Portals"
     },
     {
         "code": "FARCASTER1",
