@@ -34,5 +34,9 @@
     {
         "code": "FARCASTER1",
         "description": "BountyCaster - 7 Days Activity"
+    },
+    {
+        "code": "DDOCS_V1",
+        "description": "Ddocs Campaign"
     }
 ]
