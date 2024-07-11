@@ -1,24 +1,26 @@
 const Whitelist = require('../../domain/whitelist');
 
-async function getAddress(req, res) {
+async function IsWhitelistedAddress(req, res) {
     const { address } = req.params;
     try {
         const whitelist = await Whitelist.find({ address });
         if (!whitelist) {
-            throw new Error(`Address ${address} not found`);
+            return res.json({
+                isWhitelisted: false, error: 'No whitelist found for this address'
+            });
         }
         res.json({
-            success: true,
-            error: null,
+            isWhitelisted: true,
             invokerAddress: whitelist.invokerAddress,
             tag: whitelist.tag,
             timeStamp: whitelist.timeStamp,
             author: whitelist.author,
+            error: null,
         });
     }
     catch (error) {
-        return res.status(400).json({ success: false, error: error.message });
+        return res.status(400).json({ IsWhitelisted: false, error: error.message });
     }
 }
 
-module.exports = getAddress;
+module.exports = IsWhitelistedAddress;
