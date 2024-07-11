@@ -4,19 +4,19 @@ const { Joi, validate } = validator;
 
 const whiteListAddressValidation = {
     body: Joi.object({
-        address: Joi.array().items(
+        addressList: Joi.array().items(
             Joi.string().required(),
         ).required(),
         tag: Joi.string().optional(),
-        author: Joi.string().required(),
+        addedBy: Joi.string().required(),
     }),
 };
 
 
 async function whitelistAddress(req, res) {
-    const { address, tag, author } = req.body;
+    const { addressList, tag, addedBy } = req.body;
     try {
-        await Whitelist.create({ address, tag, author });
+        await Whitelist.create({ addressList, tag, addedBy });
         res.json({ success: true, error: null });
     }
     catch (error) {
