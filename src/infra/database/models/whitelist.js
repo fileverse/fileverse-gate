@@ -15,7 +15,7 @@ _whitelist.schema = new Schema({
     required: true,
     default: Date.now
   },
-  author: { type: String },
+  addedBy: { type: String },
 });
 
 _whitelist.schema.pre('save', function (next) {
@@ -29,7 +29,7 @@ _whitelist.schema.methods.safeObject = function () {
     'invokerAddress',
     'tag',
     'timeStamp',
-    'author'
+    'addedBy'
   ];
   const newSafeObject = {};
   safeFields.forEach((elem) => {
