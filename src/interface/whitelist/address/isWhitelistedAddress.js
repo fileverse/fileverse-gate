@@ -1,4 +1,4 @@
-const Whitelist = require('../../domain/whitelist');
+const Whitelist = require('../../../domain/whitelist');
 
 async function isWhitelistedAddress(req, res) {
     const { address } = req.params;

@@ -7,11 +7,10 @@ const {
     asyncHandlerArray,
 } = require('../../infra/asyncHandler');
 
-const whitelistAddress = require('./address');
-const isWhitelistedAddress = require('./isWhitelistedAddress');
-const { whitelistAdmin } = require('../middleware');
+const codeRouter = require('./codes');
+const addressRouter = require('./address');
 
-router.post('/address', asyncHandler(whitelistAdmin), asyncHandlerArray(whitelistAddress));
-router.get('/address/:address', asyncHandler(isWhitelistedAddress));
+router.use('/codes', codeRouter);
+router.use('/address', addressRouter);
 
 module.exports = router;

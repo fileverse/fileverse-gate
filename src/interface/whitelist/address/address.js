@@ -1,5 +1,5 @@
-const Whitelist = require('../../domain/whitelist');
-const { validator } = require("../middleware");
+const Whitelist = require('../../../domain/whitelist');
+const { validator } = require("../../middleware");
 const { Joi, validate } = validator;
 
 const whiteListAddressValidation = {
