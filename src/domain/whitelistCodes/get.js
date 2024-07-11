@@ -1,6 +1,10 @@
 const { WhitelistCodes } = require("../../infra/database/models");
 
-async function getAll({ status }) {
+async function getByCode({ code }) {
+    return await WhitelistCodes.findOne({ code });
+}
+
+async function getAllByStatus({ status }) {
 
     const whitelistCodes = WhitelistCodes.find({ status });
     if (status == 'active') {
@@ -25,4 +29,4 @@ async function getAll({ status }) {
     return await whitelistCodes;
 }
 
-module.exports = getAll;
+module.exports = { getAllByStatus, getByCode };

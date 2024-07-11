@@ -2,7 +2,7 @@ const WhitelistCodes = require("../../../domain/whitelistCodes");
 const { validator } = require("../../middleware");
 const { Joi, validate } = validator;
 
-const disable_codes_req_validations = {
+const disableCodesReqValidations = {
     body: Joi.object({
         codes: Joi.array().items(
             Joi.string().required()
@@ -10,14 +10,17 @@ const disable_codes_req_validations = {
     }),
 };
 
-async function disable_codes(req, res) {
+async function disableCodes(req, res) {
     const { codes } = req.body;
     try {
-        const updatedWhitelistCodesData = await WhitelistCodes.disable({ codes })
-        res.json(updatedWhitelistCodesData);
+        const updatedWhitelistCodesData = await WhitelistCodes.disable({ codes });
+        updatedCodes = updatedWhitelistCodesData.map((code) => {
+            return code.code;
+        });
+        res.json({ success: true, codes: updatedCodes });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ error: error.message });
     }
 }
 
-module.exports = [validate(disable_codes_req_validations), disable_codes];
+module.exports = [validate(disableCodesReqValidations), disableCodes];
