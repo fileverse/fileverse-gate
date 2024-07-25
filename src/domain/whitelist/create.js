@@ -1,35 +1,42 @@
 const { Whitelist } = require('../../infra/database/models')
-import { ethers } from 'ethers';
+const { ethers } = require('ethers');
 
-async function resolveENS(ensName) {
-    console.log(`Resolving ENS name: ${ensName}`)
-    // Connect to the Ethereum provider
-    const provider = new ethers.JsonRpcProvider('https://rpc.ankr.com/eth');
+async function create({ addressList, tag, addedBy }) {
+    tag = tag || 'personal-invite'
 
-    // Fetch the resolver contract address
-    const resolverAddress = await provider.resolveName(ensName);
+    let { validAddress, invalidAddress } = await filterAddresses(addressList);
 
-    if (!resolverAddress) {
-        throw new Error(`Could not resolve ENS name: ${ensName}`);
+    let bulkData = [];
+    for (let addr of validAddress) {
+        bulkData.push({ invokerAddress: addr, tag: tag, addedBy: addedBy })
     }
+    await Whitelist.insertMany(bulkData)
 
-    return resolverAddress;
+    return { validAddress, invalidAddress };
 }
 
+async function filterAddresses(addressList) {
+    let validAddress = [], invalidAddress = [];
 
-
-async function create({ addressList, isEns, tag, addedBy }) {
-    tag = tag || 'personal-invite'
-    const bulkData = addressList.map((addr) => {
-        if (isEns) {
-            const resolverAddress = resolveENS(addr)
-            return { invokerAddress: resolverAddress, tag: tag, addedBy: addedBy }
+    for (let addr of addressList) {
+        const isValidAddress = ethers.utils.isAddress(addr)
+        if (isValidAddress) {
+            validAddress.push(addr)
+            continue;
         }
 
-        return { invokerAddress: addr, tag: tag, addedBy: addedBy }
-    })
+        const provider = new ethers.providers.JsonRpcProvider('https://rpc.ankr.com/eth');
+        const resolvedAddress = await provider.resolveName(addr);
 
-    await Whitelist.insertMany(bulkData)
+        if (resolvedAddress) {
+            validAddress.push(resolvedAddress)
+            continue;
+        }
+
+        invalidAddress.push(addr)
+    }
+
+    return { validAddress, invalidAddress }
 }
 
 module.exports = create;

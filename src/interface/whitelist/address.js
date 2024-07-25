@@ -16,8 +16,8 @@ const whiteListAddressValidation = {
 async function whitelistAddress(req, res) {
     const { addressList, isEns, tag, addedBy } = req.body;
     try {
-        await Whitelist.create({ addressList, isEns, tag, addedBy });
-        res.json({ success: true, error: null });
+        const { validAddress, invalidAddress } = await Whitelist.create({ addressList, isEns, tag, addedBy });
+        res.json({ success: true, validAddress, invalidAddress });
     }
     catch (error) {
         return res.status(400).json({ success: false, error: error.message });
