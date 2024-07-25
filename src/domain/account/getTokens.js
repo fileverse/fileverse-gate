@@ -3,11 +3,22 @@ const Token = require('../../infra/token');
 
 const tokenInstance = new Token();
 
-async function getTokens({ address, search, chain }) {
-  const tokens = await tokenInstance.getOwnedTokens({
-    address,
-    chain: chain || config.CHAIN,
-  });
+async function getTokens({ address, search, chain, tokenAddress }) {
+  let tokens = [];
+
+  if (tokenAddress) {
+    tokens = await tokenInstance.getTokenByMetadata({
+      address: address,
+      chain: chain,
+      tokenAddress: tokenAddress,
+    });
+  }
+  else {
+    tokens = await tokenInstance.getOwnedTokens({
+      address,
+      chain: chain || config.CHAIN,
+    });
+  }
   // eslint-disable-next-line
   return tokens.filter((token) => token.name.match(new RegExp(search, 'i')));
 }

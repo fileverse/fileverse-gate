@@ -20,11 +20,19 @@
         "description": "ETHDENVER Campaign"
     },
     {
+        "code": "ONLY_FILES",
+        "description": "Only Files Campaign"
+    },
+    {
         "code": "FILEVERSE_SUMMER",
         "description": "Limited Activity"
     },
     {
         "code": "FARCASTER1",
         "description": "BountyCaster - 7 Days Activity"
+    },
+    {
+        "code": "DDOCS_V1",
+        "description": "Ddocs Campaign"
     }
 ]
