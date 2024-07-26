@@ -25,7 +25,11 @@ async function filterAddresses(addressList) {
             continue;
         }
 
-        const provider = new ethers.providers.JsonRpcProvider('https://rpc.ankr.com/eth');
+        const mainnetrpc = process.env.ETH_MAINNET_RPC_URL;
+        if (!mainnetrpc) {
+            throw error('ETH_MAINNET_RPC_URL not found')
+        }
+        const provider = new ethers.providers.JsonRpcProvider(mainnetrpc);
         const resolvedAddress = await provider.resolveName(addr);
 
         if (resolvedAddress) {
