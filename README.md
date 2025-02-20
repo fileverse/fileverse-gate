@@ -1,3 +1,3 @@
 # Fileverse Gate
 
-Service to handle gating of file from authorised UCANs
+A service that manages file gating, ensuring access control through authorized UCANs.
