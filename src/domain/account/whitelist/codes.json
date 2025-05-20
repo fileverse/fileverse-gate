@@ -1,38 +1,34 @@
 [
-    {
-        "code": "ETHCC",
-        "description": "Ethereum Community Conference"
-    },
-    {
-        "code": "LAYER3",
-        "description": "Layer3 OnChain Competition"
-    },
-    {
-        "code": "GALXE",
-        "description": "Galxe Campaign Link"
-    },
-    {
-        "code": "BLOCKSCOUT",
-        "description": "Blockscout Marketplace"
-    },
-    {
-        "code": "ETHDENVER",
-        "description": "ETHDENVER Campaign"
-    },
-    {
-        "code": "ONLY_FILES",
-        "description": "Only Files Campaign"
-    },
-    {
-        "code": "FILEVERSE_SUMMER",
-        "description": "Limited Activity"
-    },
-    {
-        "code": "FARCASTER1",
-        "description": "BountyCaster - 7 Days Activity"
-    },
-    {
-        "code": "DDOCS_V1",
-        "description": "Ddocs Campaign"
-    }
+  {
+    "code": "ETHCC",
+    "description": "Ethereum Community Conference"
+  },
+  {
+    "code": "LAYER3",
+    "description": "Layer3 OnChain Competition"
+  },
+  {
+    "code": "GALXE",
+    "description": "Galxe Campaign Link"
+  },
+  {
+    "code": "BLOCKSCOUT",
+    "description": "Blockscout Marketplace"
+  },
+  {
+    "code": "ETHDENVER",
+    "description": "ETHDENVER Campaign"
+  },
+  {
+    "code": "FILEVERSE_SUMMER",
+    "description": "Limited Activity"
+  },
+  {
+    "code": "FARCASTER1",
+    "description": "BountyCaster - 7 Days Activity"
+  },
+  {
+    "code": "DDOCS_V1",
+    "description": "Ddocs Campaign"
+  }
 ]
